@@ -12,9 +12,7 @@ You can check the status of your plant and set the watering profile from the web
 
 Project created by the Hub Innovation team from [Epitech](http://www.epitech.eu)
 
-![Ploc]()
-
-//Youtube ==> [First Drink!](http://www.youtube.com/watch?v=8okK15RWCJY)
+![Ploc](http://imgur.com/LbKkspR)
 
 Features
 --------
@@ -32,9 +30,6 @@ on any http enabled device:
 
 [GET] `/api/profiles` -> returns the list of all profiles
 
-[POST] `/api/profileName` -> 
-
-Create profile
 -------
 
 To create new profile, you just need to add a new file in the recipes folder based on the sample:
@@ -43,23 +38,33 @@ To create new profile, you just need to add a new file in the recipes folder bas
 {
   "name": "Juliet", // name of the profile
   "api": "juliet", // name of the endpoint for the web API
-  "ingredients": [
-      {"time": 2000} // time is the number of millisecond for each ingredient
-    ]
+  "data": 
+      {"time": 2000 // time is the number of millisecond of watering
+      "humidity":0, // voltage of the humidity sensor, if lower than 1000, the plant needs water
+       "light":0, // voltage of the light sensor, if lower than 1000, the plant needs light
+       "water":"19/04/1988", // date of the last watering
+       "tank":Ok // level of water in the tank}
 }
 ```
 
 RoadMap
 --------
-* Creation of a web front with angularjs/Bootstrap
-* Mobile client
-* 
+* Creation of a post method to create new profiles
+* Air Humidity and temperature sensor
+* multi level tank (high, medium, low)
 
 Hardware
 --------
 * Intel [Galileo](http://www.intel.com/content/www/us/en/intelligent-systems/galileo/galileo-overview.html)
-* 
-* 1x [2 channels relay board](http://www.elecfreaks.com/store/2-channel-5v12v24v-relay-module-p-270.html)
+* Submersible pump Aleas AH-1
+* Relay
+* Sensors :
+	- humidity : 
+		* 2 raw steel nails (L 100mm,  4,5)
+		* Phototransistor (LTV4N35)
+		* 100 kΩ resistor
+	- light : a simple LDR and a 100 kΩ resistor
+	- tank level : two wires
 
 Estimated: under 120$
 
