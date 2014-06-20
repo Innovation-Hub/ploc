@@ -12,7 +12,7 @@ You can check the status of your plant and set the watering profile from the web
 
 Project created by the Hub Innovation team from [Epitech](http://www.epitech.eu)
 
-![Ploc](http://imgur.com/LbKkspR)
+![Ploc](http://i.imgur.com/LbKkspR.jpg)
 
 Features
 --------
