@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html ng-app="plocApp">
+  <head>
+  	<title>Ploc UI</title>
+  	<meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	<link href="css/bootstrap.min.css" rel="stylesheet">
+  	<link rel="stylesheet" href="css/font-awesome.min.css">
+  	<link rel="stylesheet" type="text/css" href="css/style.css">
+    
+  	<!--script type="text/javascript" src="index.js"></script-->
+  </head>
+
+  <body>
+    <div class='square-box'>
+      <div class='square-content'>
+        <div>
+          <span>Ploc</span>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+        <div class="btn-group pull-right">
+          <ul>
+            <a href="#/" class="btns active">Home</a>
+            <a href="#/monitoring" class="btns">Monitoring</a>
+          </ul>
+        </div>
+    </div>
+
+    <div ng-view></div>
+
+    <div id="footer">
+    	<div class="container">
+    		<img src="ui/cloud.png" alt="Cloud">
+        <img src="ui/embedded.png" alt="Embedded">
+        <img src="ui/virtuality.png" alt="Virtuality">
+      </div>
+    </div>
+    <script type="text/javascript" src="js/jquery-2.1.0.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/angular.min.js"></script>
+    <script type="text/javascript" src="js/angular-route.min.js"></script>
+    <script type="text/javascript" src="app/app.js"></script>
+    <script type="text/javascript" src="app/controllers.js"></script>
+  </body>
+</html>
+	

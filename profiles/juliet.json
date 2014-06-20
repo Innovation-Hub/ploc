@@ -1,0 +1,13 @@
+{
+	"name": "Juliet",
+	"api": "juliet",
+	"data":
+        {
+            
+            "time": 10000,
+            "humidity":0,
+            "light":0,
+            "water":"19/04/1988",
+            "tank":42
+        }
+}

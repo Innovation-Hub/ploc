@@ -1,0 +1,138 @@
+/* Sticky footer styles
+-------------------------------------------------- */
+@charset "UTF-8";
+@font-face {
+    font-family: BebasNeue;
+    src: url('../fonts/BebasNeue.otf');
+}
+
+html,
+body {
+  height: 100%;
+  font-family: BebasNeue;
+    background-image: url(../ui/header-left.png);
+    background-repeat:no-repeat;
+    background-attachment:relative;
+    background-position: top right; 
+  /* The html and body elements cannot have any padding or margin. */
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  /* Negative indent footer by it's height */
+  margin: 0 auto -60px;
+}
+
+#footer {
+  position: relative;
+  width: -moz-calc(100%);
+  width: -webkit-calc(100% - 461px);
+  width: calc(100%);
+  padding-left: 60%;
+  overflow: hidden;
+  background: #444444;
+  height: 69px;
+}
+
+#footer div {
+  margin-top: 10px;
+
+}
+
+a:hover, a:focus {
+    background-color: #444444;
+    color: #7ada94;
+    text-decoration: none;
+    }
+
+.text-params {
+    font-family: arial;
+    font-size:33px;
+    color: #7ada94;
+}
+
+.info-params{
+  font-family: arial;
+  font-size:33px;
+  color: #444444;
+}
+
+img {
+    max-width:100% !important;
+    height:auto;
+    display:block;
+    float: left;
+}
+
+.btns {
+  background-color:#7ada94;
+  text-indent:0;
+  display:inline-block;
+  color:#444444;
+  font-family: BebasNeue;
+  font-size:25px;
+  font-style:normal;
+  height:65px;
+  line-height:65px;
+  width:131px;
+  text-align:center;
+  margin-right: 15px;
+}
+
+.btns:active {
+  background-color: #444444;
+  color: #7ada94;
+  text-decoration: none;
+}
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+.container {
+  width: auto;
+  max-width: 680px;
+}
+.container .credit {
+  margin: 20px 0;
+}
+
+.square-box{
+    position: relative;
+    width: -moz-calc(100% - 328px);
+    width: -webkit-calc(100% - 328px);
+    width: calc(100% - 328px);
+    padding-right: 30px;
+    overflow: hidden;
+    background: #444444;
+    height: 123px;
+}
+
+.container img {
+  margin-right: 15px;
+}
+
+.square-content div {
+   display: table;
+   width: 50px;
+   height: 123px;
+   color: #7ada94;
+   margin-left: 21px;
+}
+.square-content span {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    color: #7ada94;
+    font-family: BebasNeue;
+    font-size: 79px;
+}
+
+.row {
+  margin-left: -15px;
+  margin-right: -15px;
+  margin-bottom: 75px;
+}
