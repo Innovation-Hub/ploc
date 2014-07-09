@@ -4,7 +4,7 @@ Ploc
 ======
 
 Innovation Hub's Plant Monitering and Watering System:
-	"PLant Online Connexion"
+	"PLant Online Connection"
 
 The goal of this project is to create a bot able to check if a plant needs water and give the right amount when it is necessary.
 
