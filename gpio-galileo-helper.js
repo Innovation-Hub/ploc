@@ -115,11 +115,9 @@ GalileoGpio.prototype.writePin = function(pin_number, data)
  * @param {Number} pin_number Number of the analog pin on the Galileo board.
  */
 
- //todo passer le raw en argument mode
 GalileoGpio.prototype.readAnalogPin = function(pin_number)
 {
     var data = fs.readFileSync("/sys/bus/iio/devices/iio:device0/in_voltage" + this.pin[pin_number].index + "_raw");
-    //console.log('Reading on pin ' + this.pin[pin_number].index)
     return data;
 };
 

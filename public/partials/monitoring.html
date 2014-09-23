@@ -1,14 +1,27 @@
 <div class="col-md-12" id="contenu">
       <div class="row"> 
+        
         <div class="col-md-4 col-offset-4">
           <img class="img-thumbnail" src="ui/Ploc.jpg" alt="Ploc la plante"></img>
         </div>
+        
         <div class="col-md-5 col-offset-2">
-        	<p class="text-params">Nom : <span class="info-params">{{profiles.name}}</span></p>
-            <p class="text-params">Humidité : <span class="info-params">{{profiles.data.humidity}}</span></p>
-            <p class="text-params">Lumière : <span class="info-params">{{profiles.data.light}}</span></p>
-            <p class="text-params">Dernier arrosage : <span class="info-params">{{profiles.data.water}}</span></p>
-            <p class="text-params">Niveau réservoir: <span class="info-params">{{profiles.data.tank}}</span></p>
+        	<p class="text-params">Name : <span class="info-params">{{profiles.name}}</span><br></br></p>
+            <p class="text-params">Thirstiness : <img class="thirsty" src="ui/{{thirstiness}}.png" alt="{{thirstiness}}"/><br></br></p>
+            <p class="text-params">Sunlight : <img class="sun" src="ui/{{sunlight}}.png" alt="{{sunlight}}"/><br></br></p>
+            <p class="text-params">Tank level: <img class="tank" src="ui/{{tank}}.png" alt="{{tank}}"/></p>
+            <br></br>
+            <div class="container-fluid">
+          <div class="btn-group pull-left">
+            <ul>
+              <input id="up" type="button" class="btns" value="Update">
+              <input id="water" type="button" class="btns" value="Water">
+            </ul>
+          </div>
         </div>
-      </div>
+        </div>
+        </div>
+
+        
+      
     </div>

@@ -43,18 +43,20 @@ fs.readdir('./profiles/', function (err, files)
 			    {
 					var r = JSON.parse(data);
 					profiles.push(r);
-					console.log('Plant ' + r.name + ' added');
-
-					
-					// todo, réponse du réservoir	
-				
+					console.log('Plant ' + r.name + ' added');		
 			    }
 			});
 		}
 	});
 });
 
+fs.appendFile('log.csv', 'Time,Plant,Humidity,Light,Temp,Tank\n', function (err) 
+		{
+  			if (err) throw err;
+		});
+
 // when users call the GET /api/profiles url, we return the list of all profiles
+// with the data from all our sensors
 app.get('/api/profiles', function (req,res) 
 {
 	console.log('Entering get');
@@ -68,36 +70,70 @@ app.get('/api/profiles', function (req,res)
 	profiles.forEach(function (r) 
 	{
 		//re = ({name: r.name, data:{}endpoint: '/api/' + r.api});
-		console.log('Starting monitoring' + r.name)
+		console.log('Monitoring ' + r.name);
 
-					r.data.humidity = '' + ploc.getHumidity();
-					//console.log('light ' + ploc.getLight());
-					r.data.light = '' + ploc.getLight();				
+		var humidity = "" + ploc.getHumidity();
+		r.data.humidity = humidity;
+		var h = humidity.replace("\n","");
+		
+		var light = "" + ploc.getLight();
+		r.data.light = light;
+		var l = light.replace("\n", "");
+
+		if (ploc.checkTank() == 0)
+		{
+			r.data.tank = 'Empty';
+			var tank = "0\n";
+		}
+		else
+		{
+			r.data.tank = 'Ok';
+			var tank = "1\n";
+		}
+		if (r.data.humidity < 3500 && r.data.tank != 'Empty')
+		{
+			ploc.setPump(r.data.time);
+			r.data.water = 'DONE';
+		}
+		else
+			r.data.water = 'NOPE';
 					
-					if (r.data.humidity < 3500)
-					{
-						ploc.setPump(r.data.time);
-						var date = new Date();
-						//r.data.water = date.getDate() + "/" 
-								//+ (date.getMonth() + 1) + "/" + date.getFullYear();
-						r.data.water = 'DONE';
-					}
-					else
-						r.data.water = 'NOPE';
-					switch (ploc.checkTank())
-					{
-						case 0:
-							r.data.tank = 'Fill me up !';
-							break;
-						// case 1:
-						// 	r.data.tank = 'Medium';
-							// break;
-						case 2:
-							r.data.tank = 'Ok';
-					}
 		re = r;
+
+		var d = new Date();
+
+		var log = d.toLocaleTimeString() + "," + r.name + "," + h + "," + l + "," + tank;
+		console.log(log);
+		fs.appendFile('log.csv', log, function (err) 
+		{
+  			if (err) throw err;
+		});
 	});
 	res.send(re);
+});
+
+
+//Here we can manually run the pump from the website
+app.get('/api/water', function()
+{
+	console.log('Entering water');
+	profiles.forEach(function (r) 
+	{
+		console.log('Watering ' + r.name);
+
+		if (r.data.tank != 'Empty')
+		{
+			ploc.setPump(r.data.time);
+			console.log('DONE');
+		}
+		else
+			console.log = ("not enough water");
+					
+		fs.appendFile('log.csv', "Manual Watering", function (err) 
+		{
+  			if (err) throw err;
+		});
+	});
 });
 
 server.listen(process.env.PORT || port);

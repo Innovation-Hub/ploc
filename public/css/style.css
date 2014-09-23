@@ -67,6 +67,33 @@ img {
     float: left;
 }
 
+.thirsty{
+  width: 60px;
+  height: 60px;
+  display:block;
+  position: absolute;
+  left: 200px;
+  top:100px;
+}
+
+.sun{
+  width: 60px;
+  height: 60px;
+  display:block;
+  position: absolute;
+  left: 200px;
+  top:200px;
+}
+
+.tank{
+  width: 60px;
+  height: 60px;
+  display:block;
+  position: absolute;
+  left: 200px;
+  top:300px;
+}
+
 .btns {
   background-color:#7ada94;
   text-indent:0;

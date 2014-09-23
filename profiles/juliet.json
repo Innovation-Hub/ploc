@@ -4,9 +4,10 @@
 	"data":
         {
             
-            "time": 10000,
+            "time": 1000,
             "humidity":0,
             "light":0,
+            "temperature":0,
             "water":"19/04/1988",
             "tank":42
         }

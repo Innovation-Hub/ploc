@@ -20,12 +20,7 @@ var PlocManager = function()
 	{
 		'pot': 'A0',
 		'ldrOut': 'A1',
-    // 'low':'A3',
-    // 'medium':'A4',
-    // 'high': 'A2',
-    'low' : 'A2',
-    // 'medium': 10,
-    // 'high' : 11,
+    'low': 'A2',
     'tank': 12,
 		'clou': 5,
 		'pump': 7,
@@ -52,48 +47,62 @@ var PlocManager = function()
     {
       "Humidity": 0,
       "Light": 0,
-      "Level": 42
+      "Level": 42,
     }
 }
 
+
+/**
+* Open the chosen pin for current alimentation
+*
+* @method openAlim
+* @param {Number} pin_number Number of the pin on the Galileo board.
+*/
 PlocManager.prototype.openAlim = function(pin_number)
-//function openAlim(pin_number)
 {
   galil.openPin(this.pin[pin_number]);
   galil.setPinDirection(this.pin[pin_number], "out");
   galil.setPinPortDrive(this.pin[pin_number], "strong");
   galil.writePin(this.pin[pin_number], this.state['ON']);
-
-  //console.log('PIN ' + this.pin[pin_number] + ': ON');
 };
 
+/**
+* Open the chosen pin for analog reading
+*
+* @method openAnalog
+* @param {Number} pin_number Number of the pin on the Galileo board.
+*/
 PlocManager.prototype.openAnalog = function(pin_number)
-//function openAnalog(pin_number)
 {
   galil.openPin(this.pin[pin_number]);
   galil.setPinDirection(this.pin[pin_number], "out");
   galil.writePin(this.pin[pin_number], this.state['OFF']);
 };
 
+/**
+* Shut off and close the chosen pin
+*
+* @method closeAlim
+* @param {Number} pin_number Number of the pin on the Galileo board.
+*/
 PlocManager.prototype.closeAlim = function(pin_number)
-//function closeAlim(pin_number)
 {
   galil.writePin(this.pin[pin_number], this.state['OFF']);
-  //console.log('PIN ' + this.pin[pin_number] + ': OFF');
-  
   galil.closePin(this.pin[pin_number]);
 };
 
 
+/**
+* Launch the humidity sensor and get the data back.
+*
+* @method getHumidity 
+*/
 PlocManager.prototype.getHumidity = function() 
-{
-  //console.log("Entering getHumidity function")
-  
+{  
   this.openAlim('clou');
   this.openAnalog('pot');
   
   this.info["Humidity"] = galil.readAnalogPin(this.pin['pot'])
-  //console.log("Humidity: " + this.info["Humidity"] );
 
   this.closeAlim('clou');  
   galil.closePin(this.pin['pot']);
@@ -101,14 +110,17 @@ PlocManager.prototype.getHumidity = function()
   return this.info["Humidity"];
 };
 
+/**
+* Launch the light sensor and get the data back.
+*
+* @method getLight
+*/
 PlocManager.prototype.getLight = function()
 {
-  //console.log("Entering getLight function")
 	this.openAlim('ldrIn');
   this.openAnalog('ldrOut');
 
 	this.info["Light"]  = galil.readAnalogPin(this.pin['ldrOut'])
-  //console.log("Light: " + this.info["Light"]);
 
   this.closeAlim('ldrIn');
   galil.closePin(this.pin['ldrOut']);
@@ -116,20 +128,28 @@ PlocManager.prototype.getLight = function()
   return this.info["Light"]
 };
 
+/**
+* Run the water pump if the plant is thirsty 
+* and if the water supply is full
+*
+* @method setPump
+* @param {Number} delay Running time of the pump 
+*/
 PlocManager.prototype.setPump = function(delay)
 {
+  console.log("Entering set pump");
   var that = this;
-  console.log('delay ' + delay);
   galil.openPin(this.pin['pump']);
   galil.setPinDirection(this.pin['pump'], "out");
   galil.setPinPortDrive(this.pin['pump'], "strong");
 
-  if (this.info["Humidity"] < 3500)
+  if (this.info["Humidity"] < 2000 && this.info["Level"] != 0)
   {
     galil.writePin(this.pin['pump'], this.state['ON']);
-    console.log("The plant needs water");
+    console.log("let the water flow");
     setTimeout(function()
       {
+        console.log("Cut this off!");
         galil.writePin(that.pin['pump'], that.state['OFF']);
         galil.closePin(that.pin['pump']);
       }, delay);  
@@ -140,16 +160,17 @@ PlocManager.prototype.setPump = function(delay)
   }
 };
 
+/**
+* Launch the water level sensor and get the data back.
+*
+* @method checkTank
+*/
 PlocManager.prototype.checkTank = function()
 {
-  //console.log("Entering getLight function")
   this.openAlim('tank');
   this.openAnalog('low');
-  // this.openAnalog('medium');
-  // this.openAnalog('high');
 
   var low = galil.readAnalogPin(this.pin['low']);
-  console.log('low ' + low);
 
   if (low > 1000)
   {
@@ -162,8 +183,6 @@ PlocManager.prototype.checkTank = function()
 
   this.closeAlim('tank');
   galil.closePin(this.pin['low']);
-  // galil.closePin(this.pin['medium']);
-  // galil.closePin(this.pin['high']);
 
   return this.info["Level"]
 }
